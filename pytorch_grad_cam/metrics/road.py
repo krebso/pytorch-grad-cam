@@ -124,9 +124,9 @@ class NoisyLinearImputer:
 
 		"""
         if mask.size()[0] == 3:
-            weights = torch.tensor([0.299, 0.587, 0.114]).view(3, 1, 1)
-            mask = torch.sum(img * weights, dim=0)
-        mask = mask.squeeze(0)
+            mask = torch.mean(mask, dim=0)
+        elif mask.size()[1] == 1:
+            mask = mask.squeeze(0)
 
         imgflt = img.reshape(img.shape[0], -1)
         maskflt = mask.reshape(-1)
